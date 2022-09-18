@@ -22,6 +22,61 @@ connection.connect((err) => {
     }
 });
 
+// Helper Functions
+
+function viewAllEmployees() {
+    connection.query('SELECT * FROM employees', (err, results) => {
+        if (err) {
+            console.log(err);
+        };
+        console.log('Viewing All Employees: ');
+        console.table(results);
+        getCommand();
+    });
+};
+
+function addEmployee() {
+
+    getCommand();
+};
+
+function updateEmployeeRole() {
+
+    getCommand();
+};
+
+function viewAllRoles() {
+    connection.query('SELECT * FROM roles', (err, results) => {
+        if (err) {
+            console.log(err);
+        };
+        console.log('Viewing All Roles: ');
+        console.table(results);
+        getCommand();
+    });
+};
+
+function addRole() {
+
+    getCommand();
+};
+
+function viewAllDepartments() {
+    connection.query('SELECT * FROM departments', (err, results) => {
+        if (err) {
+            console.log(err);
+        };
+        console.log('Viewing All Departments: ');
+        console.table(results);
+        getCommand();
+    });
+};
+
+function addDepartment() {
+
+    getCommand();
+};
+
 // This variable holds the command prompt for use in getCommand function
 const commandArray = [
     {
@@ -37,39 +92,30 @@ function getCommand() {
     inquirer.prompt(commandArray)
     .then((data) => {
         if (data.command == 'View All Employees') {
-            console.log(data.command);
-                // do that for real tho
+            viewAllEmployees();
         };
         if (data.command == 'Add Employee') {
-            console.log(data.command);
-                // do that for real tho
+            addEmployee();
         };
         if (data.command == 'Update Employee Role') {
-            console.log(data.command);
-                // do that for real tho
+            updateEmployeeRole();
         };
         if (data.command == 'View All Roles') {
-            console.log(data.command);
-                // do that for real tho
+            viewAllRoles();
         };
         if (data.command == 'Add Role') {
-            console.log(data.command);
-                // do that for real tho
+            addRole();
         };
         if (data.command =='View All Departments') {
-            console.log(data.command);
-                // do that for real tho
+            viewAllDepartments();
         };
         if (data.command == 'Add Department') {
-            console.log(data.command);
-                // do that for real tho
+            addDepartment();
         };
         if (data.command =='Quit') {
-            console.log(data.command);
-            // do that for real tho
+            console.log("Goodbye");
             connection.end();
         };
     });
 };
 
-// Helper Functions
