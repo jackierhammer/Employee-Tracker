@@ -1,7 +1,28 @@
+// Import Statements
 const inquirer = require('inquirer');
-// const mysql = require('mysql2');
-// const cTable = require('console.table');
+const mysql = require('mysql2');
+const cTable = require('console.table');
 
+// Imports enviromental variables
+require('dotenv').config();
+
+// Creates connection using environmental variables
+const connection = mysql.createConnection({
+    host: 'localhost',
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME
+});
+
+connection.connect((err) => {
+    if (err) {
+        console.log("Something didn't work, bro");
+    } else {
+        getCommand();
+    }
+});
+
+// This variable holds the command prompt for use in getCommand function
 const commandArray = [
     {
         type: 'list',
@@ -11,6 +32,7 @@ const commandArray = [
     },
 ];
 
+// Asks the user what they want to do now and calls the helper function that will do it
 function getCommand() {
     inquirer.prompt(commandArray)
     .then((data) => {
@@ -45,8 +67,9 @@ function getCommand() {
         if (data.command =='Quit') {
             console.log(data.command);
             // do that for real tho
+            connection.end();
         };
     });
 };
 
-getCommand();
+// Helper Functions
